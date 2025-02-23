@@ -179,3 +179,126 @@ def menu():
 
 
 menu()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mi archivo de la tarea 5....
+
+
+def menu():
+    print("\n---- Menú de Opciones ----")
+    print("1. Aperturar cuenta")
+    print("2. Depósito")
+    print("3. Retiro")
+    print("4. Eliminar cuenta")
+    print("5. Finalizar")
+    print("--------------------------")
+
+
+def aperturar():
+    print("\n--- Apertura de Cuenta ---")
+    while True:
+        nombre = input("Ingrese el nombre del usuario: ").strip()
+        if nombre.isalpha(): 
+            break
+        else:
+            print(" El nombre solo debe contener letras.")
+
+    while True:
+        tarjeta = input("Ingrese el número de tarjeta (10 dígitos): ")
+        if len(tarjeta) == 10 and tarjeta.isdigit():
+            print(" Número de tarjeta aceptado.")
+            break
+        else:
+            print(" El número de tarjeta debe tener 10 dígitos numéricos.")
+
+    while True:
+        try:
+            cuenta = float(input("Ingrese monto inicial de la cuenta: "))
+            if cuenta <= 2000:
+                return nombre, tarjeta, cuenta
+            else:
+                print(" El monto debe ser menor que 2000.")
+        except ValueError:
+            print(" Ingrese un número válido.")
+
+
+def deposito(nombre, tarjeta, ahorro):
+    while True:
+        print("\n--- Depósito en la Cuenta ---")
+        tarjeta_ingresada = input("Ingrese el número de tarjeta: ").strip()
+
+        if tarjeta_ingresada == tarjeta:
+            print(f"Titular de la cuenta: {nombre}")
+
+            try:
+                cantidad = float(input("Ingrese monto a depositar: "))
+                if cantidad > 0:
+                    ahorro += cantidad
+                    print(f"Depósito exitoso. Total en cuenta: {ahorro:.2f}")
+                    return ahorro
+                else:
+                    print("El monto debe ser positivo.")
+            except ValueError:
+                print("Ingrese un monto válido.")
+        else:
+            print("Número de tarjeta incorrecto. Intente nuevamente.")
+
+
+def retiros(nombre, tarjeta, ahorro):
+    while True:
+        print("\n --Retiro de la cuenta--------")
+        tarjeta_ingresada = input("Ingrese el numero de tarjeta: ").strip()
+        if tarjeta_ingresada == tarjeta:
+            print(f"Titular de la cuenta: {nombre}")
+
+            try:
+                monto = float(input("Ingrese el monto a retirar: "))
+                if 0 < monto <= ahorro:
+                    ahorro -= monto
+                    print(f" Retiro exitoso. Total restante: {ahorro:.2f}")
+                else:
+                    print(" Fondos insuficientes o monto inválido.")
+            except ValueError:
+                print(" Ingrese un monto válido.")
+            return ahorro
+
+
+
+def elimimar_cuenta(nombre, tarjeta, ahorro):
+    print("\n--- Eliminar Cuenta ---")
+    tarjeta_ingresada = input("Ingrese el numero de tarjeta: ").strip()
+    print(f"\nCuenta  al Nombre: {nombre} ")
+    print(f"Numero de tarjeta: {tarjeta_ingresada} ")
+    print(f"monto de  Ahorro {ahorro}.")
+
+
+
+    if tarjeta_ingresada == tarjeta:
+        confirmacion = input("¿Está seguro de eliminar la cuenta? (s/n):").strip()
+
+        if confirmacion == 's':
+            print(f"\nCuenta eliminada exitosamente")
+            return None, None, 0 
+        else:
+            print("Operacion cancelada.")
+            return nombre, tarjeta, ahorro
+    else:
+        print("Numero de tarjeta incorrecto. Operacion cancelada.")
+        return nombre, tarjeta, ahorro
+
+
